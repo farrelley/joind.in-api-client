@@ -7,6 +7,7 @@
  */
 
 require 'Zend/Rest/Client.php';
+require 'Zend/Json.php';
 
 class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 {
