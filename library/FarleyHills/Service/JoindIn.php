@@ -6,9 +6,11 @@
  * @version $Id$
  */
 
+require 'Zend/Rest/Client.php';
+
 class FarleyHills_Service_JoindIn extends Zend_Rest_Client
-{	
-	const SERVICE_BASE_URI = 'http://www.joind.in';
+{
+	const SERVICE_BASE_URI = 'http://test.joind.in';
 	const API_ENTRY_POINT = '/api';
 	
 	protected static $_defaultResponseFormat = 'json';
@@ -115,7 +117,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     	require_once str_replace('_', '/', $apiComponent. '.php');
     	
     	if (!class_exists($apiComponent)) {
-            require_once 'Zend/Service/GitHub/Exception.php';
+            require_once 'FarleyHills/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Nonexisting API component '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $apiComponent);
             throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
@@ -133,7 +135,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     public function __call($method, $params)
     {
         if ($this->_currentApiComponent === null) {
-           // TODO:  Fix-> require_once 'Zend/Service/GitHub/Exception.php';
+           	require_once 'FarleyHills/Service/JoindIn/Exception.php';
             throw new FarleyHills_Service_JoindIn_Exception('No JoindIn API component set');
         }
         
@@ -141,14 +143,14 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         $method = sprintf("_%s", strtolower($method));
         
         if (!method_exists($this->_currentApiComponent, $method)) {
-            // TODO Fix--> require_once 'Zend/Service/GitHub/Exception.php';
+            require_once 'FarleyHills/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Nonexisting API method '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $method);
             throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
         }
         
         if (!in_array($methodOriginal, $this->_currentApiComponent->_supportedMethods)) {
-            // TODO Fix--> require_once 'Zend/Service/GitHub/Exception.php';
+            require_once 'FarleyHills/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Unsupported API method '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $methodOriginal);
             throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
