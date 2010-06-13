@@ -6,24 +6,75 @@
  * @version $Id$
  */
 
+/*
+ * @see Zend_Rest_Client
+ */
 require 'Zend/Rest/Client.php';
+
+/**
+ * @see Zend_Json
+ */
 require 'Zend/Json.php';
 
 class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 {
+	/**
+	 * Joind.In Base URI
+	 * @var string
+	 */
 	const SERVICE_BASE_URI = 'http://test.joind.in';
+	
+	/**
+	 * entry endpoint for the joind.in service
+	 * @var string 
+	 */
 	const API_ENTRY_POINT = '/api';
 	
+	/**
+	 * Default response type
+	 * @var $_defaultResponseFormat string
+	 */
 	protected static $_defaultResponseFormat = 'json';
+	
+	/**
+	 * @var $_authenticationRequired bool
+	 */
 	protected $_authenticationRequired = true;
 	
+	/**
+	 * @var $_responseFormat string
+	 */
 	protected $_responseFormat;
+	
+	/**
+	 * @var $_username string
+	 */
 	protected $_username;
+	
+	/**
+	 * @var $_password string
+	 */
 	protected $_password;
+	
+	/**
+	 * @var $_localHttpClient Zend_Http_Client
+	 */
 	protected $_localHttpClient;
+	
+	/**
+	 * @var $_auth string
+	 */
 	protected $_auth;
+	
+	/**
+	 * @var $_cookieJar Zend_Http_CookieJar
+	 */
 	protected $_cookieJar;
 	
+	/**
+	 * supported api endpoints
+	 * @var $_supportedApiTypes array
+	 */
 	protected $_supportedApiTypes = array(
 		'site',
 		'event',
@@ -32,12 +83,21 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 		'comment',
     );
     
+    /**
+     * supported reponse formats
+     * @var $_supportedResponseFormats array
+     */
     protected $_supportedResponseFormats = array(
     	'json', 
     	'xml',
     	'array'
     );
     
+    /**
+     * 
+     * @param string $username
+     * @param string $password
+     */
 	public function __construct($username = null, $password = null)
 	{
 		if (!is_null($username)) {
@@ -63,29 +123,47 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         $this->_localHttpClient = $client;
         return $this;
     }
-	
+    
+	/**
+	 * set username
+	 * @param string $username
+	 */
 	public function setUsername($username)
 	{
 		$this->_username = (string) $username;
 		return $this;
 	}
 	
+	/**
+	 * set password
+	 * @param string $password
+	 */
 	public function setPassword($password)
 	{
 		$this->_password = (string) $password;
 		return $this;
 	}
 	
+	/**
+	 * get username
+	 */
 	public function getUsername()
 	{
 		return $this->_username;
 	}
 	
+	/**
+	 * get password 
+	 */
 	public function getPassword()
 	{
 		return $this->_password;
 	}
 	
+	/**
+	 * set response format
+	 * @param string $format
+	 */
 	public function setResponseFormat($format)
 	{
 		if (!in_array(strtolower($format), $this->_supportedResponseFormats)) {
@@ -98,6 +176,9 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 		return $this;
 	}
 	
+	/**
+	 * get the response format
+	 */
 	public function getResponseFormat()
 	{
 		if (!$this->_responseFormat) {
@@ -106,6 +187,10 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 		return $this->_responseFormat;
 	}
 	
+	/**
+	 * Proxy the Joind.In API Service endponts
+	 * @param string $type
+	 */
 	public function __get($type)
     {
     	if (!in_array($type, $this->_supportedApiTypes)) {
@@ -133,6 +218,11 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         return $this;
     }
 
+    /**
+     * Overload Methods
+     * @param string $method
+     * @param string $params
+     */
     public function __call($method, $params)
     {
         if ($this->_currentApiComponent === null) {
@@ -166,6 +256,9 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 		);
     }
     
+    /**
+     * set up http client 
+     */
     protected function _init()
     {
     	$client = $this->_localHttpClient;
@@ -182,6 +275,11 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         }
     }
    
+    /**
+     * perform joind.in api post
+     * @param string $path
+     * @param string $action
+     */
     protected function _post($path, $action)
     {
         $this->_prepare($path);
@@ -191,6 +289,10 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         return $this->_localHttpClient->request('POST');
     }
     
+    /**
+     * Build raw api query
+     * @param string $action
+     */
     protected function _setupQuery($action)
     {
     	$query = array();
@@ -208,6 +310,10 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     	return Zend_Json::encode($query);
     }
     
+    /**
+     * prepare uri for api
+     * @param string $path
+     */
     protected function _prepare($path)
     {
         // Get the URI object and configure it
