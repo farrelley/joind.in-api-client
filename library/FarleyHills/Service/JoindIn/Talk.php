@@ -8,8 +8,16 @@
 
 class FarleyHills_Service_JoindIn_Talk extends FarleyHills_Service_JoindIn
 {
+	/**
+	 * api endpoint for talk
+	 * @var string
+	 */
 	protected static $_endPoint = 'talk';
 	
+	/**
+	 * supported api talk methods 
+	 * @var array
+	 */
 	protected $_supportedMethods = array(
 		'getDetail',
 		'getComments',
@@ -17,6 +25,12 @@ class FarleyHills_Service_JoindIn_Talk extends FarleyHills_Service_JoindIn
 		'add', //TODO : add this method
 	);
 
+	/**
+	 * 
+	 * @param string $username
+	 * @param string $password
+	 * @param string $responseFormat
+	 */
 	public function __construct($username = null, $password = null, $responseFormat = null)
 	{
 		$this->setResponseFormat($responseFormat);
