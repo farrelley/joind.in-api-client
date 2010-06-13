@@ -33,7 +33,7 @@ class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
 	 * @param int|string $eventId
 	 * @return Zend_Http_Response
 	 */
-	protected function _getEventDetail($eventId)
+	protected function _getDetail($eventId)
 	{
 		$methodType = 'getdetail';
 		$action = array(
@@ -57,7 +57,7 @@ class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
 	 * @param int|string $eventId
 	 * @return Zend_Http_Response
 	 */
-	protected function _getEventTalks($eventId)
+	protected function _getTalks($eventId)
 	{
 		$methodType = 'gettalks';
 		$action = array(
@@ -81,7 +81,7 @@ class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
 	 * @param string $eventType
 	 * @return Zend_Http_Response
 	 */
-	protected function _getEventListing($eventType)
+	protected function _getListing($eventType)
 	{
 		$methodType = 'getlist';
 		$supportedEventTypes = array('hot', 'upcoming', 'past', 'pending');
