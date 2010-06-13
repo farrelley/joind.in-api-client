@@ -121,8 +121,6 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
             throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
         }
         
-        echo $apiComponent . "<br />";
-        
         $this->_currentApiPart = $type;
         $this->_currentApiComponent = new $apiComponent(
         	$this->getUsername(),
@@ -134,9 +132,6 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 
     public function __call($method, $params)
     {
-    	echo $method . "<br />";
-    	Zend_Debug::dump($params);
-
         if ($this->_currentApiComponent === null) {
            // TODO:  Fix-> require_once 'Zend/Service/GitHub/Exception.php';
             throw new FarleyHills_Service_JoindIn_Exception('No JoindIn API component set');
