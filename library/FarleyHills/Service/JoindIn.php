@@ -97,6 +97,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
      * 
      * @param string $username
      * @param string $password
+     * @return void
      */
 	public function __construct($username = null, $password = null)
 	{
@@ -116,7 +117,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
      * as inherited from Zend_Rest_Client.
      *
      * @param Zend_Http_Client $client
-     * @return self
+     * @return FarleyHills_Service_JoindIn
      */
     public function setLocalHttpClient(Zend_Http_Client $client)
     {
@@ -127,6 +128,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set username
 	 * @param string $username
+	 * @return FarleyHills_Service_JoindIn
 	 */
 	public function setUsername($username)
 	{
@@ -137,6 +139,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set password
 	 * @param string $password
+	 * @return FarleyHills_Service_JoindIn
 	 */
 	public function setPassword($password)
 	{
@@ -165,6 +168,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set response format
 	 * @param string $format
+	 * @return FarleyHills_Service_JoindIn
 	 */
 	public function setResponseFormat($format)
 	{
@@ -180,6 +184,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	
 	/**
 	 * get the response format
+	 * @return string
 	 */
 	public function getResponseFormat()
 	{
@@ -192,6 +197,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * Proxy the Joind.In API Service endponts
 	 * @param string $type
+	 * @return FarleyHills_Service_JoindIn
 	 */
 	public function __get($type)
     {
@@ -224,6 +230,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
      * Overload Methods
      * @param string $method
      * @param string $params
+     * @return void
      */
     public function __call($method, $params)
     {
@@ -260,6 +267,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     
     /**
      * set up http client 
+     * @return void
      */
     protected function _init()
     {
@@ -309,6 +317,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
      * perform joind.in api post
      * @param string $path
      * @param string $action
+     * @return Zend_Http_Response
      */
     protected function _post($path, $action)
     {
@@ -322,6 +331,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     /**
      * Build raw api query
      * @param string $action
+     * @return string
      */
     protected function _setupQuery($action)
     {
@@ -343,6 +353,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     /**
      * prepare uri for api
      * @param string $path
+     * @return void
      */
     protected function _prepare($path)
     {

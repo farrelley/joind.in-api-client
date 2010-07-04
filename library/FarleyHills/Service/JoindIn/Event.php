@@ -22,6 +22,12 @@ class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
 		'addTrack', //TODO: Implement
 	);
 
+	/**
+	 * constructor
+	 * @param string $username
+	 * @param string $password
+	 * @param string $responseFormat
+	 */
 	public function __construct($username = null, $password = null, $responseFormat = null)
 	{
 		$this->setResponseFormat($responseFormat);

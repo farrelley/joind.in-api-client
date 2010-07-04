@@ -9,8 +9,16 @@
 
 class FarleyHills_Service_JoindIn_User extends FarleyHills_Service_JoindIn
 {
+	/**
+	 * class api endpoint
+	 * @var string
+	 */
 	protected static $_endPoint = 'user';
 	
+	/**
+	 * supported endppoint methods
+	 * @var $_supportedMethods array
+	 */
 	protected $_supportedMethods = array(
 		'getDetail',
 		'getComments',
@@ -18,6 +26,13 @@ class FarleyHills_Service_JoindIn_User extends FarleyHills_Service_JoindIn
 		'getProfile',
 	);
 
+	/**
+	 * constructor
+	 * @param string $username
+	 * @param string $password
+	 * @param string $responseFormat
+	 * @return void
+	 */
 	public function __construct($username = null, $password = null, $responseFormat = null)
 	{
 		$this->setResponseFormat($responseFormat);
