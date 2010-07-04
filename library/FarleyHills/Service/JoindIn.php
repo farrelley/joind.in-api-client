@@ -22,7 +22,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	 * Joind.In Base URI
 	 * @var string
 	 */
-	const SERVICE_BASE_URI = 'http://www.joind.in';
+	const SERVICE_BASE_URI = 'http://test.joind.in';
 	
 	/**
 	 * entry endpoint for the joind.in service
@@ -146,6 +146,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	
 	/**
 	 * get username
+	 * @return string
 	 */
 	public function getUsername()
 	{
@@ -154,6 +155,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	
 	/**
 	 * get password 
+	 * @return string
 	 */
 	public function getPassword()
 	{
@@ -271,8 +273,36 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
         }
         
         if ($this->_authenticationRequired) {
-        	$this->_auth = array('auth' => array('user' => $this->getUsername(), 'pass' => md5($this->getPassword())));
+        	$this->_prepareAuthentication();
         }
+    }
+    
+    /**
+     * Prepares the authenication string
+     * @return void
+     */
+    protected function _prepareAuthentication() 
+    {
+    	Zend_Debug::dump($this->getUsername());
+    	if (NULL === $this->getUsername() || NULL === $this->getPassword()) {
+    		require_once 'FarleyHills/Service/JoindIn/Exception.php';
+    		$exceptionMessage  = "Username or Password not set";
+            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+    	}
+    	
+    	$userDefinedResponseFormat = $this->getResponseFormat();
+    	$this->setResponseFormat('json');
+    	$validation = $this->user->validate($this->getUsername(), $this->getPassword());
+    	
+    	$validation = Zend_Json::decode($validation);
+    	if ("success" !== $validation['msg']) {
+    		require_once 'FarleyHills/Service/JoindIn/Exception.php';
+    		$exceptionMessage  = "Invlaid Username or Password";
+            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+    	}
+    	
+    	$this->setResponseFormat($userDefinedResponseFormat);
+    	$this->_auth = array('auth' => array('user' => $this->getUsername(), 'pass' => md5($this->getPassword())));
     }
    
     /**
