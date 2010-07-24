@@ -7,7 +7,7 @@
  *
  */
 
-class FarleyHills_Service_JoindIn_User extends FarleyHills_Service_JoindIn
+class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 {
 	/**
 	 * class api endpoint
@@ -82,10 +82,10 @@ class FarleyHills_Service_JoindIn_User extends FarleyHills_Service_JoindIn
 		$supportedCommentTypes = array('event', 'talk');
 		if (!is_null($type)) {
 			if (!in_array(strtolower($type), $supportedCommentTypes)) {
-				require_once 'FarleyHills/Service/JoindIn/Exception.php';
+				require_once 'Zend/Service/JoindIn/Exception.php';
             	$exceptionMessage  = "Unsupported comment type '%s' used";
             	$exceptionMessage = sprintf($exceptionMessage, $type);
-            	throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            	throw new Zend_Service_JoindIn_Exception($exceptionMessage);
 			}
 			$action['data']['type'] = $type;
 		}

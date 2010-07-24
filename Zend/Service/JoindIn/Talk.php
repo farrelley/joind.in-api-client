@@ -6,7 +6,7 @@
  * 
  */
 
-class FarleyHills_Service_JoindIn_Talk extends FarleyHills_Service_JoindIn
+class Zend_Service_JoindIn_Talk extends Zend_Service_JoindIn
 {
 	/**
 	 * api endpoint for talk

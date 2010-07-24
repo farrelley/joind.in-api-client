@@ -6,7 +6,7 @@
  * @version $Id$
  */
 
-class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
+class Zend_Service_JoindIn_Event extends Zend_Service_JoindIn
 {
 	protected static $_endPoint = 'event';
 	
@@ -92,10 +92,10 @@ class FarleyHills_Service_JoindIn_Event extends FarleyHills_Service_JoindIn
 		$methodType = 'getlist';
 		$supportedEventTypes = array('hot', 'upcoming', 'past', 'pending');
 		if (!in_array(strtolower($eventType), $supportedEventTypes)) {
-			require_once 'FarleyHills/Service/JoindIn/Exception.php';
+			require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Unsupported event type '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $eventType);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
 		}
 		
 		$action = array(

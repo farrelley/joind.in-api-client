@@ -8,7 +8,7 @@
 
 require_once 'Zend/Service/Exception.php';
 
-class FarleyHills_Service_JoindIn_Exception extends Zend_Service_Exception
+class Zend_Service_JoindIn_Exception extends Zend_Service_Exception
 {
 	
 }

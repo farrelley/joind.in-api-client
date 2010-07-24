@@ -16,7 +16,7 @@ require 'Zend/Rest/Client.php';
  */
 require 'Zend/Json.php';
 
-class FarleyHills_Service_JoindIn extends Zend_Rest_Client
+class Zend_Service_JoindIn extends Zend_Rest_Client
 {
 	/**
 	 * Joind.In Base URI
@@ -117,7 +117,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
      * as inherited from Zend_Rest_Client.
      *
      * @param Zend_Http_Client $client
-     * @return FarleyHills_Service_JoindIn
+     * @return Zend_Service_JoindIn
      */
     public function setLocalHttpClient(Zend_Http_Client $client)
     {
@@ -128,7 +128,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set username
 	 * @param string $username
-	 * @return FarleyHills_Service_JoindIn
+	 * @return Zend_Service_JoindIn
 	 */
 	public function setUsername($username)
 	{
@@ -139,7 +139,7 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set password
 	 * @param string $password
-	 * @return FarleyHills_Service_JoindIn
+	 * @return Zend_Service_JoindIn
 	 */
 	public function setPassword($password)
 	{
@@ -168,15 +168,15 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * set response format
 	 * @param string $format
-	 * @return FarleyHills_Service_JoindIn
+	 * @return Zend_Service_JoindIn
 	 */
 	public function setResponseFormat($format)
 	{
 		if (!in_array(strtolower($format), $this->_supportedResponseFormats)) {
-			require_once 'FarleyHills/Service/JoindIn/Exception.php';
+			require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Unsupported response type '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $format);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
 		}
 		$this->_responseFormat = (string) $format;
 		return $this;
@@ -197,24 +197,24 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
 	/**
 	 * Proxy the Joind.In API Service endponts
 	 * @param string $type
-	 * @return FarleyHills_Service_JoindIn
+	 * @return Zend_Service_JoindIn
 	 */
 	public function __get($type)
     {
     	if (!in_array($type, $this->_supportedApiTypes)) {
-            require_once 'FarleyHills/Service/JoindIn/Exception.php';
+            require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Unsupported API type '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $type);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
         }
     	$apiComponent = sprintf('%s_%s', __CLASS__, ucfirst($type));
     	require_once str_replace('_', '/', $apiComponent. '.php');
     	
     	if (!class_exists($apiComponent)) {
-            require_once 'FarleyHills/Service/JoindIn/Exception.php';
+            require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Nonexisting API component '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $apiComponent);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
         }
         
         $this->_currentApiPart = $type;
@@ -235,25 +235,25 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     public function __call($method, $params)
     {
         if ($this->_currentApiComponent === null) {
-           	require_once 'FarleyHills/Service/JoindIn/Exception.php';
-            throw new FarleyHills_Service_JoindIn_Exception('No JoindIn API component set');
+           	require_once 'Zend/Service/JoindIn/Exception.php';
+            throw new Zend_Service_JoindIn_Exception('No JoindIn API component set');
         }
         
         $methodOriginal = $method;
         $method = sprintf("_%s", strtolower($method));
         
         if (!method_exists($this->_currentApiComponent, $method)) {
-            require_once 'FarleyHills/Service/JoindIn/Exception.php';
+            require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Nonexisting API method '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $method);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
         }
         
         if (!in_array($methodOriginal, $this->_currentApiComponent->_supportedMethods)) {
-            require_once 'FarleyHills/Service/JoindIn/Exception.php';
+            require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Unsupported API method '%s' used";
             $exceptionMessage = sprintf($exceptionMessage, $methodOriginal);
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
         }
         
         return call_user_func_array(
@@ -293,9 +293,9 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     {
     	Zend_Debug::dump($this->getUsername());
     	if (NULL === $this->getUsername() || NULL === $this->getPassword()) {
-    		require_once 'FarleyHills/Service/JoindIn/Exception.php';
+    		require_once 'Zend/Service/JoindIn/Exception.php';
     		$exceptionMessage  = "Username or Password not set";
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
     	}
     	
     	$userDefinedResponseFormat = $this->getResponseFormat();
@@ -304,9 +304,9 @@ class FarleyHills_Service_JoindIn extends Zend_Rest_Client
     	
     	$validation = Zend_Json::decode($validation);
     	if ("success" !== $validation['msg']) {
-    		require_once 'FarleyHills/Service/JoindIn/Exception.php';
+    		require_once 'Zend/Service/JoindIn/Exception.php';
     		$exceptionMessage  = "Invlaid Username or Password";
-            throw new FarleyHills_Service_JoindIn_Exception($exceptionMessage);
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
     	}
     	
     	$this->setResponseFormat($userDefinedResponseFormat);
