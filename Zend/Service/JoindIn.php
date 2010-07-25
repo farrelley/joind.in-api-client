@@ -22,7 +22,7 @@ class Zend_Service_JoindIn extends Zend_Rest_Client
 	 * Joind.In Base URI
 	 * @var string
 	 */
-	const SERVICE_BASE_URI = 'http://test.joind.in';
+	const SERVICE_BASE_URI = 'http://www.joind.in';
 	
 	/**
 	 * entry endpoint for the joind.in service
