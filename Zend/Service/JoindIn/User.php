@@ -46,6 +46,11 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 	 */
 	protected function _getDetail($userId)
 	{
+		if (!isset($userId)) {
+			require_once 'Zend/Service/JoindIn/Exception.php';
+            $exceptionMessage  = "No username or user id was specified.";
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
+		} 
 		$methodType = 'getdetail';
 		$action = array(
 			'type' => $methodType, 
@@ -56,7 +61,6 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 		$this->_authenticationRequired = true;
 		$this->_init();
 		$response = $this->_post(self::$_endPoint. '/' . $methodType, $action);
-		Zend_Debug::dump($response);
 		if ('array' === $this->getResponseFormat()) {
 			return Zend_Json::decode($response->getBody());
 		}
@@ -107,6 +111,12 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 	 */
 	protected function _validate($username, $password) 
 	{
+		if (is_null($username) || is_null($password)) {
+			require_once 'Zend/Service/JoindIn/Exception.php';
+            $exceptionMessage  = "Username and password are required.";
+            throw new Zend_Service_JoindIn_Exception($exceptionMessage);
+		}
+		
 		$methodType = 'validate';
 		$action = array(
 			'type' => $methodType, 
@@ -121,6 +131,7 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 		if ('array' === $this->getResponseFormat()) {
 			return Zend_Json::decode($response->getBody());
 		}
+		Zend_Debug::dump($response->getHeadersAsString());
 		return $response->getBody();
 	}
 
