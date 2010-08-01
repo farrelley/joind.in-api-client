@@ -291,7 +291,6 @@ class Zend_Service_JoindIn extends Zend_Rest_Client
      */
     protected function _prepareAuthentication() 
     {
-    	Zend_Debug::dump($this->getUsername());
     	if (NULL === $this->getUsername() || NULL === $this->getPassword()) {
     		require_once 'Zend/Service/JoindIn/Exception.php';
     		$exceptionMessage  = "Username or Password not set";
@@ -301,14 +300,12 @@ class Zend_Service_JoindIn extends Zend_Rest_Client
     	$userDefinedResponseFormat = $this->getResponseFormat();
     	$this->setResponseFormat('json');
     	$validation = $this->user->validate($this->getUsername(), $this->getPassword());
-    	
     	$validation = Zend_Json::decode($validation);
     	if ("success" !== $validation['msg']) {
     		require_once 'Zend/Service/JoindIn/Exception.php';
     		$exceptionMessage  = "Invlaid Username or Password";
             throw new Zend_Service_JoindIn_Exception($exceptionMessage);
-    	}
-    	
+    	}  	
     	$this->setResponseFormat($userDefinedResponseFormat);
     	$this->_auth = array('auth' => array('user' => $this->getUsername(), 'pass' => md5($this->getPassword())));
     }
