@@ -46,7 +46,7 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 	 */
 	protected function _getDetail($userId)
 	{
-		if (!isset($userId)) {
+		if ("" === $userId) {
 			require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "No username or user id was specified.";
             throw new Zend_Service_JoindIn_Exception($exceptionMessage);
@@ -111,7 +111,7 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 	 */
 	protected function _validate($username, $password) 
 	{
-		if (is_null($username) || is_null($password)) {
+		if ('' === $username || '' === $password) {
 			require_once 'Zend/Service/JoindIn/Exception.php';
             $exceptionMessage  = "Username and password are required.";
             throw new Zend_Service_JoindIn_Exception($exceptionMessage);
@@ -131,7 +131,6 @@ class Zend_Service_JoindIn_User extends Zend_Service_JoindIn
 		if ('array' === $this->getResponseFormat()) {
 			return Zend_Json::decode($response->getBody());
 		}
-		Zend_Debug::dump($response->getHeadersAsString());
 		return $response->getBody();
 	}
 
